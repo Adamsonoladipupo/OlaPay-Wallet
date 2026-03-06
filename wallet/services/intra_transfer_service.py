@@ -4,22 +4,19 @@ from wallet.models import Wallet, Transaction, Ledger
 from django.db import transaction
 
 
-def transfer_wallet_to_wallet(sender: Wallet, receiver: Wallet, amount: Decimal, idempotent_key: UID, description: str = None):
+def transfer_wallet_to_wallet(sender: Wallet, receiver: Wallet, amount: Decimal, idempotency_key: UID, description: str = None):
     amount = Decimal(amount)
     if sender.pk == receiver.pk:
         raise Exception('cannot transfer to self')
     if amount > sender.balance:
         raise Exception('sender balance exceeds receiver balance')
 
-    existing_tx = Transaction.objects.filter(idempotent_key = idempotent_key).first()
+    existing_tx = Transaction.objects.filter(idempotency_key = idempotency_key).first()
     if existing_tx:
         return existing_tx
 
     with transaction.atomic():
-        try:
-            receiver_wallet = Wallet.objects.select_for_update().get(pk=receiver.pk)
-        except Wallet.DoesNotExist:
-            raise Exception('receiver wallet does not exist')
+        receiver_wallet = Wallet.objects.select_for_update().get(pk=receiver.pk)
         sender_wallet = Wallet.objects.select_for_update().get(pk=sender.pk)
 
     sender_wallet.balance -= amount
@@ -33,7 +30,7 @@ def transfer_wallet_to_wallet(sender: Wallet, receiver: Wallet, amount: Decimal,
         amount = amount,
         description = description,
         transaction_type = 'CREDIT',
-        idempotency_key = idempotent_key,
+        idempotency_key = idempotency_key,
     )
 
     Ledger.objects.create(
