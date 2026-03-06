@@ -37,7 +37,7 @@ class Transaction(models.Model):
         ('REJECTED', 'Rejected'),
         ('FAILED', 'Failed'),
     )
-    status = models.BooleanField(max_length=9, choices=TRANSACTION_STATUS)
+    status = models.CharField(max_length=9, choices=TRANSACTION_STATUS, default='PENDING')
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     idempotency_key = models.UUIDField(unique=True, blank=True, null=True, editable=False)
@@ -53,8 +53,8 @@ class Ledger(models.Model):
     transaction = models.ForeignKey(Transaction, on_delete=models.PROTECT)
     transaction_key = models.CharField(max_length=11, unique=True, blank=True, null=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    balance_after = models.DecimalField(max_digits=10, decimal_places=2)
+    balance = models.DecimalField(max_digits=10, decimal_places=2)
     wallet = models.ForeignKey(Wallet, on_delete=models.PROTECT)
-    entry_type = models.CharField(max_length=7, choices=TRANSACTION_TYPE)
+    transaction_type = models.CharField(max_length=7, choices=TRANSACTION_TYPE, default='CREDIT')
     created_at = models.DateTimeField(auto_now_add=True)
 
