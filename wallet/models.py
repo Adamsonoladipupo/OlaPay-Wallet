@@ -18,7 +18,10 @@ class Wallet(models.Model):
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES)
     status = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='wallet')
+
+    # def __str__(self):
+    #     return f"{"Wallet Number " + self.wallet_number }"
 
 
 class Transaction(models.Model):

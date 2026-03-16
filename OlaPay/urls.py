@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+admin.site.site_header = 'OlaPay Admin'
+admin.site.site_title = 'Ola Pay Admin Portal'
+admin.site.index_title = "Welcome OlaPay Admin Portal"
 
 urlpatterns = [
 

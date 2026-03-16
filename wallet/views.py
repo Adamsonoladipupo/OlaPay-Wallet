@@ -4,10 +4,12 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
 from .models import Wallet
-from .serializer import WalletTransferSerializer
+from .serializer import WalletTransferSerializer, DashboardSerializer
 from rest_framework.response import Response
 from wallet.services.intra_transfer_service import transfer_wallet_to_wallet
 from rest_framework.decorators import api_view, permission_classes
+
+from .services.dashboard_service import get_dashboard_data
 
 
 # Create your views here.
@@ -39,3 +41,12 @@ def transfer_wallet(request):
 
          }, status=status.HTTP_201_CREATED
     )
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def dashboard(request):
+    user = request.user
+    dashboard_data = get_dashboard_data(user)
+    serializer = DashboardSerializer(dashboard_data)
+    return Response(serializer.data , status=status.HTTP_200_OK)
+
