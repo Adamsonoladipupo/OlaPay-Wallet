@@ -1,4 +1,7 @@
+from rest_framework.generics import get_object_or_404
+
 import notification
+from wallet.models import Wallet
 from .models import Notification
 from django.core.mail import send_mail
 
@@ -17,6 +20,51 @@ def create_notification(user):
 
     send_mail(
         subject="Welcome to OlaPay!",
+        message= notification.message,
+        from_email='',
+        recipient_list=[user.email],
+        fail_silently=True,
+    )
+
+    notification.is_read = True
+    notification.save()
+
+def create_transfer_notification(user, amount):
+    wallet = get_object_or_404(Wallet, user=user)
+    notification = Notification.objects.create(
+        wallet = user.wallet.wallet_number,
+        message=f"""
+        ***** CREDIT ALERT *****
+        {amount} has been credited into your wallet!
+        your new balance is {wallet.balance}
+        """,
+        event_type='USER_TRANSFER_NOTIFICATION',
+    )
+    send_mail(
+        subject="Wallet Transfer Notification",
+        message= notification.message,
+        from_email='',
+        recipient_list=[user.email],
+        fail_silently=True,
+    )
+    notification.is_read = True
+    notification.save()
+
+def deposit_notification(user, amount):
+    wallet = get_object_or_404(Wallet, user=user)
+    notification = Notification.objects.create(
+        wallet = user.wallet.wallet_number,
+        message=f"""
+        ***** DEPOSIT SUCCESSFULLY*****
+        {amount} has been credited into your wallet!
+        your new balance is {wallet.balance}
+    
+        """,
+        event_type='USER_DEPOSIT_NOTIFICATION',
+    )
+
+    send_mail(
+        subject="Wallet Deposit Notification",
         message= notification.message,
         from_email='',
         recipient_list=[user.email],

@@ -20,6 +20,21 @@ class WalletTransferSerializer(serializers.Serializer):
             raise Exception('receiver wallet does not exist')
         return receiver_wallet
 
+class DepositSerializer(serializers.Serializer):
+    amount = serializers.DecimalField(max_digits=10, decimal_places=2, default=0)
+    def validate_amount(self, value):
+        if value < 0:
+            raise Exception("Invalid amount. Amount must be positive.")
+        return value
+
+class FundWalletSerializer(serializers.Serializer):
+    amount = serializers.DecimalField(max_digits=10, decimal_places=2)
+
+    def validate_amount(self, value):
+        if value < 0:
+            raise Exception("Invalid amount. Amount must be positive.")
+        return value
+
 class RecentTransactionSerializer(serializers.Serializer):
     class Meta:
         model = Transaction
