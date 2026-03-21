@@ -66,7 +66,7 @@ def fund_wallet(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def fund_wallet(request):
+def fundd_wallet(request):
     serializer = FundWalletSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
 
@@ -76,8 +76,6 @@ def fund_wallet(request):
     payment_response = initiate_paystack_payment(user, amount)
 
     return Response(payment_response, status=status.HTTP_200_OK)
-
-
 
 
 @api_view(['GET'])

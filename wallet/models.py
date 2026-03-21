@@ -60,5 +60,6 @@ class Ledger(models.Model):
     wallet = models.ForeignKey(Wallet, on_delete=models.PROTECT)
     transaction_type = models.CharField(max_length=7, choices=TRANSACTION_TYPE, default='CREDIT')
     created_at = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
-        return f"{self.transaction}  {self.entry_type} {self.amount}"
+        return f"{self.transaction}  {self.transaction_type} {self.amount}"

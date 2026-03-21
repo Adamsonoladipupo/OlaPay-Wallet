@@ -2,7 +2,6 @@ from decimal import Decimal
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.sites import requests
 from django.db import transaction
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -10,11 +9,13 @@ from rest_framework.response import Response
 
 from wallet.models import Wallet, Transaction, Ledger
 
+import requests
+
 User = get_user_model()
 
 def initiate_paystack_payment(user, amount):
     headers = {
-        'Authorization': f'Bearer {settings.PAYSTACK_API_KEY}',
+        'Authorization': f'Bearer {settings.PAYSTACK_SECRET_KEY}',
         'Content-Type': 'application/json',
     }
     data = {
@@ -39,7 +40,7 @@ def verify_paystack_payment(reference):
         'Authorization': f'Bearer {settings.PAYSTACK_SECRET_KEY}',
         'Content-Type': 'application/json',
     }
-    url = f'{settings.PAYSTACK_VERIFY_URL} {reference}'
+    url = f'{settings.PAYSTACK_VERIFY_URL}{reference}'
     response = requests.get(url, headers=headers)
     return response.json()
 

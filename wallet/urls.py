@@ -1,7 +1,7 @@
 from django.urls import path, include
 
 from .services.fund_wallet import paystack_callback
-from .views import transfer_wallet, dashboard, fund_wallet
+from .views import transfer_wallet, dashboard, fundd_wallet, fund_wallet
 
 urlpatterns = [
     path("transfer/", transfer_wallet, name="transfer"),
@@ -10,7 +10,7 @@ urlpatterns = [
 
     path("callback/", paystack_callback, name="paystack_callback"),
 
-    path("fund/", fund_wallet, name="fund_wallet"),
+    path("fund/", fundd_wallet, name="fund_wallet"),
 
     path("dashboard/", dashboard, name="dashboard"),
 ]
