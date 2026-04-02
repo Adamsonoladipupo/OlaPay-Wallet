@@ -1,16 +1,16 @@
-# 📱 OlaPay Wallet
+# OlaPay Wallet
 
 A Django-based mobile wallet backend system that enables users to securely manage funds, perform transactions, and interact with digital payment services.
 
 ---
 
-## 🚀 Overview
+## Overview
 
 OlaPay Wallet is a fintech backend application designed to power mobile and web wallet solutions. It provides core features such as user authentication, wallet management, fund transfers, and transaction tracking. This project serves as a foundation for building scalable digital payment platforms, with integrated payment support via Paystack.
 
 ---
 
-## ✨ Features
+## Features
 
 * User registration and authentication
 * Wallet creation and balance management
@@ -22,7 +22,7 @@ OlaPay Wallet is a fintech backend application designed to power mobile and web 
 
 ---
 
-## 🏗️ Tech Stack
+## Tech Stack
 
 * Backend: Django, Django REST Framework
 * Database: mySQL
@@ -32,7 +32,7 @@ OlaPay Wallet is a fintech backend application designed to power mobile and web 
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```id="jmhgdk"
 OlaPay-Wallet/
@@ -46,7 +46,7 @@ OlaPay-Wallet/
 
 ---
 
-## ⚙️ Installation & Setup
+## Installation & Setup
 
 1. Clone the repository
 
@@ -83,7 +83,7 @@ python manage.py runserver
 
 ---
 
-## 🔌 API Endpoints (Sample)
+## API Endpoints (Sample)
 
 * POST `/api/register/` → Create user
 * POST `/api/login/` → Authenticate user
@@ -94,7 +94,7 @@ python manage.py runserver
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 * Validate all transactions
 * Prevent double spending
@@ -104,7 +104,7 @@ python manage.py runserver
 
 ---
 
-## 📈 Future Improvements
+## Future Improvements
 
 * Airtime & bill payment features
 * Multi-currency support
@@ -114,7 +114,7 @@ python manage.py runserver
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a new branch
@@ -123,13 +123,13 @@ python manage.py runserver
 
 ---
 
-## 📄 License
+## License
 
 MIT License
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 Adamson Oladipupo
 https://github.com/Adamsonoladipupo
