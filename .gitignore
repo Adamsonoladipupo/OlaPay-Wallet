@@ -9,3 +9,15 @@ wheels/
 # Virtual environments
 .venv
 .env
+
+.git
+.gitignore
+.idea
+_pycache_
+*.pyc
+*.pyo
+*.pyd
+db.sqlite3
+Dockerfile
+docker-compose.yml
+README.md
